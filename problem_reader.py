@@ -54,7 +54,7 @@ class ProblemReader(object):
             samples.append(sample)
         return
 
-    def read_variables(self, dir, start_date_str, end_date_str = None):
+    def read_variables(self, dir, start_date_str, end_date_str = None, start_hour = None,end_hour = None):
         start_date = datetime.strptime(start_date_str,"%Y-%m-%d")
         end_date = start_date
         if(end_date_str != None):

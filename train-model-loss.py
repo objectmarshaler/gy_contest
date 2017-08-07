@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 from problem_reader import ProblemReader
 
 # Model
-model_file = "data\\models\\2016-03-01TO2016-03-31"
+model_file = "data\\models\\2016-03-01TO2016-03-2"
 model = None
 with open(model_file, 'rb') as pickle_file:
     model = pickle.load(pickle_file)
 
 # Read validation data set.
-from_date = "2016-04-01"
-end_date = "2016-04-15"
+from_date = "2016-03-12"
+end_date = "2016-03-13"
 reader = ProblemReader()
 variables = np.array(reader.read_variables(
     "data\\training_data\\", from_date, end_date))

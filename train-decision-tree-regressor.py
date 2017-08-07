@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from problem_reader import ProblemReader
 
 # Read training data set.
-from_date = "2016-03-01"
-end_date = "2016-03-31"
+from_date = "2016-03-05"
+end_date = "2016-03-06"
 reader = ProblemReader()
 variables = np.array(reader.read_variables(
     "data\\training_data\\", from_date, end_date))
