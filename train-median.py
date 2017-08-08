@@ -39,7 +39,7 @@ def main():
 
 
     median_unfit_links_weekend = []
-    median_unfit_links_morning = []
+    median_fit_links_morning = []
     median_unfit_links_evening = []
     median_fitted_links = []
     link_traval_time_median_morning = []
@@ -56,18 +56,18 @@ def main():
     print("EMPE (All) : {}".format(total_loss / len(variables)))
 
     variables_morning = [v for v in variables if
-                        v[-2] > 0 and v[-2] < 6.5]
+                        v[-2] >= 8 and v[-2] <= 9 and v[-4] <6]
     link_traval_time_median_morning, total_loss = train_median_model(variables_morning)
     loss = 0
     for t in link_traval_time_median_morning:
         loss += t[2]
-        if(t[2] > 0.3):
-            median_unfit_links_morning.append(t[0])
+        if(t[2] < 0.3):
+            median_fit_links_morning.append(t[0])
 
     print("EMPE (Morning) : {}".format(total_loss / len(variables_morning)))
 
     variables_evening = [v for v in variables if
-                        v[-2] > 20 and v[-2] < 24]
+                        v[-2] > 20 and v[-2] < 24 and v[-4] <6]
     link_traval_time_median_evening, total_loss = train_median_model(variables_evening)
     loss = 0
     for t in link_traval_time_median_evening:
@@ -95,7 +95,7 @@ def main():
     median_model["link_traval_time_median_evening"] = link_traval_time_median_evening
     median_model["median_unfit_links_evening"] = median_unfit_links_evening
     median_model["link_traval_time_median_morning"] = link_traval_time_median_morning
-    median_model["median_unfit_links_morning"] = link_traval_time_median_morning
+    median_model["median_fit_links_morning"] = median_fit_links_morning
     median_model["median_fitted_links"] = median_fitted_links
 
     # persistence model

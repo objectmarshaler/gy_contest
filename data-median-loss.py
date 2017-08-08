@@ -13,10 +13,10 @@ with open(model_file, 'rb') as pickle_file:
     model = pickle.load(pickle_file)
 
 # Read validation data set.
-from_date = "2016-03-12"
-end_date = "2016-06-01"
-start_hour = 20
-end_hour = 24
+from_date = "2016-03-1"
+end_date = "2016-04-30"
+start_hour = 8
+end_hour = 9
 reader = ProblemReader()
 variables = reader.read_variables(
     "data\\training_data\\", from_date, end_date)
@@ -26,13 +26,13 @@ unfit_links = []
 fitted_links = []
 
 
-# variables_0_to_5am = [v for v in variables if
-#                     v[-2] > start_hour and v[-2] < end_hour and v[0] not in unfit_links]
+variables_0_to_5am = [v for v in variables if
+                     v[-2] >= start_hour and v[-2] <= end_hour]
 
 #variables_0_to_5am = [v for v in variables if
 #                     v[-4] == 4 or v[-4] == 5 and v[0] not in unfit_links]
 
-variables_0_to_5am = [v for v in variables]
+#variables_0_to_5am = [v for v in variables]
 
 links_map = set(map(lambda x: x[0], variables_0_to_5am))
 variables_group_by_links = [

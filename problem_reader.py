@@ -66,7 +66,7 @@ class ProblemReader(object):
             current_date = current_date + timedelta(days=1)
         
         for i in range(len(variables)):
-            variables[i] = [float(x) for x in  variables[i]]
+            variables[i] = [self._num(x) for x in  variables[i]]
         
         return variables
 
@@ -104,3 +104,9 @@ class ProblemReader(object):
             writer.writeheader()
             for row in rows:
                 writer.writerow(row)
+    
+    def _num(self,s):
+        try:
+            return int(s)
+        except ValueError:
+            return float(s)
