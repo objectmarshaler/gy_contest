@@ -10,7 +10,7 @@ def train_median_model(samples):
     links_map = set(map(lambda x: x[0], samples))
     variables_group_by_links = [
         [variable for variable in samples if variable[0] == x] for x in links_map]
-    link_traval_time_median = []
+    link_traval_time_median = {}
     total_loss = 0
     for variables_by_link in variables_group_by_links:
         variables_array = np.array(variables_by_link)
@@ -24,7 +24,7 @@ def train_median_model(samples):
         total_loss += loss
         loss = loss / len(y)
 
-        link_traval_time_median.append([variables_by_link[0][0],y_median, loss])
+        link_traval_time_median[variables_by_link[0][0]] = [variables_by_link[0][0],y_median, loss]
 
     return link_traval_time_median, total_loss
 
@@ -48,7 +48,7 @@ def main():
 
     loss = 0
     link_traval_time_median_all, total_loss = train_median_model(variables)
-    for t in link_traval_time_median_all:
+    for link,t in link_traval_time_median_all.items():
         loss += t[2]
         if(t[2] < 0.3):
             median_fitted_links.append(t[0])
@@ -59,7 +59,7 @@ def main():
                         v[-2] >= 8 and v[-2] <= 9 and v[-4] <6]
     link_traval_time_median_morning, total_loss = train_median_model(variables_morning)
     loss = 0
-    for t in link_traval_time_median_morning:
+    for link,t in link_traval_time_median_morning.items():
         loss += t[2]
         if(t[2] < 0.3):
             median_fit_links_morning.append(t[0])
@@ -70,7 +70,7 @@ def main():
                         v[-2] > 20 and v[-2] < 24 and v[-4] <6]
     link_traval_time_median_evening, total_loss = train_median_model(variables_evening)
     loss = 0
-    for t in link_traval_time_median_evening:
+    for link,t in link_traval_time_median_evening.items():
         loss += t[2]
         if(t[2] > 0.3):
             median_unfit_links_evening.append(t[0])
@@ -82,7 +82,7 @@ def main():
                         v[-4] == 6 or v[-4] == 7]
     link_traval_time_median_weekend,total_loss = train_median_model(variables_weekend)
     loss = 0
-    for t in link_traval_time_median_weekend:
+    for link,t in link_traval_time_median_weekend.items():
         loss += t[2]
         if(t[2] > 0.3):
             median_unfit_links_weekend.append(t[0])
